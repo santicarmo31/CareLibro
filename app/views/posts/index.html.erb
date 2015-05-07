@@ -1,0 +1,10 @@
+<h1>Estos son los posts</h1>
+<br>
+<% @posts.each do |x| %>
+<h1><%=link_to x.title, x %></h1>
+<p><%= x.description %></p>
+<hr>
+<%end%>
+<button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-edit" aria-hidden="true"></span><%= link_to " Nuevo post", :new_post %>
+</button>

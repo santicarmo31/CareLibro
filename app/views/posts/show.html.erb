@@ -1,0 +1,30 @@
+
+<h1><p class="text-center" id="title"><%= @post.title %></p></h1>
+<h4><%= @post.description %></h4>
+<div>
+<h3>Comentarios</h3>
+<% @comments.each do |com|%>
+<% if com.description != nil %>
+<div class="tab-pane active" id="comments-logout">
+                   <ul class="media-list">
+                     <li class="media">
+                       <a class="pull-left" href="#">
+                      <%= image_tag("ola.jpg",width: 150, height: 150,class: "media-object img-circle") %>
+                    </a>
+                       <div class="media-body">
+                         <div class="well well-lg">
+                             <h4 class="media-heading text-uppercase reviews"><%= com.post.user.name  %> </h4>
+
+                             <p class="media-comment">
+                               <%= com.description  %>
+                             </p>
+                             <a class="btn btn-info btn-circle text-uppercase" href="#" id="reply"><span class="glyphicon glyphicon-share-alt"></span> Reply</a>
+                             <a class="btn btn-warning btn-circle text-uppercase" data-toggle="collapse" href="#replyOne"><span class="glyphicon glyphicon-comment"></span> 2 comments</a>
+                         </div>
+                       </div>
+<%end%>
+<%end%>
+<%= render "comments/formcom" %>
+</div>
+ <%= link_to "regresar", :posts %>
+<%= link_to "editar", edit_post_path(@post) %>

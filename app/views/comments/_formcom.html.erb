@@ -1,0 +1,5 @@
+<%= form_for @comment do |x| %>
+<%= x.text_field :description %>
+<%= x.hidden_field :post_id %>
+<%= x.submit "Comentar"%>
+<%end%>
