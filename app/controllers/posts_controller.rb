@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+    before_filter :authenticate!,only: [:create,:new,:destroy,:edit,:update] #Se deber autenticar para usar estos metodos
   def new
     @post = Post.new
   end
@@ -9,6 +10,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+      @post.user = current_user
     if @post.save
       redirect_to @post
     else
@@ -19,7 +21,11 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
-    @comment = @post.comments.build
+      if params[:comment]
+          @comment = Comment.find(params[:comment])
+      else 
+        @comment = @post.comments.build
+      end
   end
 
   def edit
@@ -35,7 +41,15 @@ class PostsController < ApplicationController
     end
 
   end
-
+    
+    def destroy
+        @post = Post.find(params[:id])
+        if @post.destroy 
+            redirect_to :posts
+        else
+            render :index, notice: "No se borro el post"
+        end
+    end
 
 
   private

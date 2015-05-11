@@ -11,6 +11,18 @@ class User < ActiveRecord::Base
     encrypt = "#{pass}#{salt}"
     return Digest::SHA2.hexdigest(encrypt)
   end
+    
+    def self.authenticate (id, password)
+        user ||= User.find_by(username: id)
+        user ||= User.find_by(email: id)
+        if user
+            if user.password == User.encrypt(password,user.salt)
+                return user 
+            end
+        end
+        return nil
+    end
+    
   private
     def encryptPassword
       if self.new_record?

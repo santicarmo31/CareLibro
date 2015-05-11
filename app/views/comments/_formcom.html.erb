@@ -1,5 +1,12 @@
-<%= form_for @comment do |x| %>
-<%= x.text_field :description %>
-<%= x.hidden_field :post_id %>
-<%= x.submit "Comentar"%>
+<%= form_for @comment, class: "form-inline" do |x| %>
+<h3>Comentar</h3>
+<div class="well">
+<div class="input-group">
+    <%=x.text_field :description,class:"form-control input-sm chat-input",placeholder: "escriba su mensaje aca"%>
+    <%=x.submit "Comentar", class: "btn btn-primary btn-sm"%>
+    <%= x.hidden_field :post_id %>
+    </div>
+</div>
+
+
 <%end%>
