@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user
+      redirect_to :posts
     else
       render :new, :notice => "El usuario no se pudo crear"
     end
@@ -19,7 +19,8 @@ class UsersController < ApplicationController
   end
 
   def logout
-
+    session.delete(:user_id)
+    redirect_to :posts
   end
 
   def new
@@ -27,7 +28,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(:username)
+  end
+
+  def index
+    @users = User.where(User.find_by(:username))
   end
 
   def destroy

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+    match "/logout",to: "users#logout", via: [:delete], as: :logout #Es via destroy por que voy a eliminar usuario
     match "/login",to: "users#login", via: [:post], as: :login
     match "/posts/:id/comments/:comment/edit",to: "posts#show", via: [:get], as: "editcom"
-    resources :users
+    resources :users do
+      resources :posts
+    end
+    resources :friendships
     resources :posts
     resources :comments
     # The priority is based upon order of creation: first created -> highest priority.

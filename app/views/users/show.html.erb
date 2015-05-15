@@ -1,3 +1,9 @@
-<h1><%=  @user.name %> </h1>
-<h3><%= @user.username %></h3>
-<%= link_to "regresar", :new_user %>
+<title> <%= current_user.username%> </title>
+<p>Username: <%=  %></p>
+<p><%= link_to "Find Friends", users_path %></p>
+<h2>Your Friends</h2>
+<ul>
+  <% for user in current_user.friends %>
+  <li><%=  user.username %></li>
+  <% end %>
+</ul>

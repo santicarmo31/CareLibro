@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.where(user: User.find_by(username: params[:user_id]))
   end
 
   def create
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @comments = @post.comments
       if params[:comment]
           @comment = Comment.find(params[:comment])
-      else 
+      else
         @comment = @post.comments.build
       end
   end
@@ -41,10 +41,10 @@ class PostsController < ApplicationController
     end
 
   end
-    
+
     def destroy
         @post = Post.find(params[:id])
-        if @post.destroy 
+        if @post.destroy
             redirect_to :posts
         else
             render :index, notice: "No se borro el post"

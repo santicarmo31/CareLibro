@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
     def create
         @comment = Comment.new (comment_params)
         if @comment.save
@@ -7,8 +8,8 @@ class CommentsController < ApplicationController
             redirect_to post_path, notice: "No se creo el comentario"
         end
     end
-    
-    
+
+
     def edit
         @comment =  Comment.find(params[:id])
     end
@@ -26,7 +27,7 @@ class CommentsController < ApplicationController
         if @comment.destroy
             redirect_to post_path(post_id)
         else
-            redirect_to :posts, notice: @comment.errors 
+            redirect_to :posts, notice: @comment.errors
         end
     end
 
