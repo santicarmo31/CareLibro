@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'welcome#home'
+
     match "/logout",to: "users#logout", via: [:delete], as: :logout #Es via destroy por que voy a eliminar usuario
     match "/login",to: "users#login", via: [:post], as: :login
     match "/posts/:id/comments/:comment/edit",to: "posts#show", via: [:get], as: "editcom"

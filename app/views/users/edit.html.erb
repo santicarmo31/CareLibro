@@ -1,0 +1,18 @@
+<h1>Registro</h1>
+<div>
+<%= form_for current_user do |x| %>
+<label>Introduzca su nombre:</label>
+<%= x.text_field :name %>
+<br>
+<!--<label>Introduzca su contraseña:</label>
+<%= x.password_field :password %>
+<br>-->
+<label>Introduzca su username:</label>
+<%= x.text_field :username %>
+<br>
+<label>Introduzca su email:</label>
+<%= x.text_field :email %>
+<br>
+<%= x.submit "Registrar"%>
+<%end%>
+</div>

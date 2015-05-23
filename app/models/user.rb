@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
   has_many :posts
-  has_many :friendships  
+  
+  has_many :friendships
   has_many :friends, :through => :friendships
+
+  has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
+  has_many :inverse_friends, :through => :inverse_friendships, :source => :user
 
   validates :username, uniqueness:true #validacion para que el usuario sea unico"
   validates :email, uniqueness:true
@@ -33,6 +37,8 @@ class User < ActiveRecord::Base
         self.password = User.encrypt(self.password, self.salt)
       end
     end
+
+
 
     def generateSalt
         s = SecureRandom.uuid #genera un universal unique  id
