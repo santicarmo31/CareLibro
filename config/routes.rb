@@ -9,7 +9,8 @@ Rails.application.routes.draw do
     match "/:id",to: "users#show", via: [:get]
     match "/:user_id/posts",to: "posts#index", via: [:get]
     get '/users/all' => 'users#index'
-    resources :account_activations, only: [:edit]
+    match "/update/updatePassword",to: "users#updatePassword", via: [:get], as: :updatePassword
+    resources :account_activations, only: [:edit,:update,:show]
     resources :users do
       resources :posts
     end

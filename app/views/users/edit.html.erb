@@ -1,24 +1,35 @@
 <h1>Actualizar</h1>
 <div>
-<%= form_for @user, html: { multipart: true }  do |x| %>
-<label>Introduzca su nombre:</label>
-<%= x.text_field :name %>
-<br>
-<!--<label>Introduzca su contraseña:</label>
-<%= x.password_field :password %>
-<br>-->
-<label>Introduzca su username:</label>
-<%= x.text_field :username %>
-<br>
-<label>Introduzca su email:</label>
-<%= x.text_field :email %>
-<br>
-<p>
-<label>Selecione imagen:</label>
-<%= x.file_field :picture %>
-</p>
-
-<br>
-<%= x.submit "Aceptar"%>
+<%unless @user.can_edit_password?%>
+  <%= form_for @user, html: { multipart: true }  do |x| %>
+    <label>Introduzca su nombre:</label>
+      <%= x.text_field :name %>
+      <br>
+      <!--<label>Introduzca su contraseña:</label>
+      <%= x.password_field :password %>
+      <br>-->
+      <label>Introduzca su email:</label>
+      <%= x.text_field :email %>
+      <br>
+      <p>
+        <label>Selecione imagen:</label>
+        <%= x.file_field :picture %>
+      </p>
+      <br>
+      <%= x.submit "Aceptar"%>
+      <%= link_to "Actualizar contraseña",:updatePassword%>
+  <%end%>
+<%else%>
+  <%= form_for @user do |x| %>
+    <%= @user.username%>
+    <label>Introduzca su nueva contraseña:</label>
+    <%= x.password_field :password %>
+    <br>
+    <label>Rectifique la nueva contraseña:</label>
+      <%= x.password_field :password_confirmation %>
+    <br>
+    <%= x.submit "Aceptar"%>
+  <%end%>
 <%end%>
+
 </div>

@@ -40,10 +40,16 @@ class User < ActiveRecord::Base
       SecureRandom.urlsafe_base64
     end
 
+    def self.setPasswordToken
+      begin
+       password_token = User.new_token
+      end while User.exists?(password_token: password_token)
+      return password_token
+    end
 
   private
     def encryptPassword
-      if self.new_record?
+      if self.new_record? || self.can_edit_password?
         self.salt = generateSalt
         self.password = User.encrypt(self.password, self.salt)
       end
@@ -65,6 +71,4 @@ class User < ActiveRecord::Base
       end while User.exists?(activation_digest: self.activation_digest)
 
     end
-
-
 end

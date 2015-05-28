@@ -1,7 +1,6 @@
 
-<%if%>
+<%if @user%>
 <h1><%= @user.username.upcase %> </h1>
-
 <p><%= link_to "Buscar amigos", "/users/all" %></p>
 <h2>Tus amigos</h2>
 <ul>
@@ -24,6 +23,5 @@
   <%end%>
   <% end %>
 </ul>
-
 <%= link_to "Mis Posts", "#{current_user.username}/posts"  %>
 <%end%>

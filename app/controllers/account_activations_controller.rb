@@ -13,7 +13,16 @@ class AccountActivationsController < ApplicationController
           else
             flash[:warning] = "Usuario activado exitosamente."
           end
-          redirect_to root_path
+        redirect_to root_path
+  end
+
+  def show
+     password_token = params[:id]
+     user = User.find_by(password_token: password_token)
+     if user && user.password_token == password_token
+       user.toggle! :can_edit_password
+       redirect_to edit_user_path(user.username)
+     end
   end
 
 end

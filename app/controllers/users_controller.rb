@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       UserMailer.account_activation(@user).deliver
-      flash[:info] = "Please check your email to activate your account."
+      flash[:info] = "Por favor revise su email para activar su cuenta"
       redirect_to root_path
     else
       render :new, :notice => "El usuario no se pudo crear"
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(username: params[:id])
-    @user = current_user unless params[:id]
+    #@user = current_user unless params[:id]
   end
 
   def index
@@ -61,15 +61,32 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(update_params)
-      flash[:success] = "Perfil actualizado!"
+    if password_params[:password] && password_params[:password_confirmation]
+      @user.update(password_params)
+      @user.can_edit_password = false
+      @user.password_token = nil
+      @user.save
+      flash[:success] = "Contraseña actualizada!"
       redirect_to "/#{current_user.username}"
     else
-      flash[:danger] = "No puedes modificar otro usuario"
+     @user.update(update_params)
+      flash[:success] = "Perfil actualizado!"
       redirect_to "/#{current_user.username}"
     end
   end
 
+  def updatePassword
+    @user = current_user
+    @user.password_token = User.setPasswordToken
+    if @user.save
+      UserMailer.password_reset(@user).deliver
+      flash[:info] = "Por favor revise su email para actualizar su contraseña"
+      redirect_to "/#{current_user.username}"
+    else
+      flash[:error] = "Error al enviar el correo"
+      redirect_to "/#{current_user.username}"
+    end
+  end
 
   def destroy
     @user = User.find(params[:id]).destroy
@@ -89,6 +106,10 @@ class UsersController < ApplicationController
 
   def login_params
       params.require(:user).permit(:id,:password)
+  end
+
+  def password_params
+      params.require(:user).permit(:password, :password_confirmation)
   end
 
   def update_params
