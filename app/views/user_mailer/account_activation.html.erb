@@ -1,0 +1,9 @@
+<h1>Care libro</h1>
+
+<p>Hi <%= @user.name %>,</p>
+
+<p>
+Bienvenidos a Carelibro la red social de los amargos de Eafit!
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@user.activation_digest) %>

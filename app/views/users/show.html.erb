@@ -1,20 +1,23 @@
-<%if current_user%>
-<h1><%= current_user.username.upcase%> </h1>
 
-<p><%= link_to "Buscar amigos", users_path %></p>
+<%if%>
+<h1><%= @user.username.upcase %> </h1>
+
+<p><%= link_to "Buscar amigos", "/users/all" %></p>
 <h2>Tus amigos</h2>
 <ul>
-  <% for friendship in current_user.friendships %>
+  <% for friendship in @user.friendships %>
   <li>
     <%= h friendship.friend.username %>
-    (<%= link_to "Eliminar amigo", friendship, method: :delete %>)
+    <%if current_user == @user %>
+      <%= link_to "Eliminar amigo", friendship, method: :delete %>
+    <% end %>
   </li>
   <% end %>
 </ul>
   <h2>Usuarios que te han enviado solicitud de amistad</h2>
 <ul>
   <% for user in current_user.inverse_friends %>
-  <%if current_user.friendships.include?(user)%>
+  <%if !current_user.friends.include?(user)%>
   <li>
     <%= link_to user.username, friendships_path(friend_id: user), method: :post  %>
   </li>
@@ -22,5 +25,5 @@
   <% end %>
 </ul>
 
-<%= link_to "Mis Posts", :posts  %>
+<%= link_to "Mis Posts", "#{current_user.username}/posts"  %>
 <%end%>

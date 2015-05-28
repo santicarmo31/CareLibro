@@ -1,3 +1,15 @@
+<%if current_user.admin?%>
+ <% for user in @users %>
+   <div class="user">
+     <p>
+       <strong><%= user.username %> Admin</strong>
+       <%= link_to "Delete User", user, :method => :delete,
+                                 data: { confirm: "Esta seguro" } %> %>
+       <div class="clear"></div>
+     </p>
+   </div>
+ <% end %>
+<%elsif current_user%>
 <% for user in @users %>
   <div class="user">
     <p>
@@ -7,3 +19,4 @@
     </p>
   </div>
 <% end %>
+<%end%>

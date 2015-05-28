@@ -1,6 +1,6 @@
-<h1>Registro</h1>
+<h1>Actualizar</h1>
 <div>
-<%= form_for current_user do |x| %>
+<%= form_for @user, html: { multipart: true }  do |x| %>
 <label>Introduzca su nombre:</label>
 <%= x.text_field :name %>
 <br>
@@ -13,6 +13,12 @@
 <label>Introduzca su email:</label>
 <%= x.text_field :email %>
 <br>
-<%= x.submit "Registrar"%>
+<p>
+<label>Selecione imagen:</label>
+<%= x.file_field :picture %>
+</p>
+
+<br>
+<%= x.submit "Aceptar"%>
 <%end%>
 </div>
