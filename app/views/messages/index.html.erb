@@ -1,0 +1,26 @@
+<%if @messages.any?%>
+<table class="table table-condensed table-hover">
+  <thead>
+  <tr>
+    <th><strong>Username</strong></th>
+    <th><strong>Asunto</strong></th>
+    <th><strong>Fecha</strong></th>
+  </tr>
+  </thead>
+  <%for message in @messages%>
+  <%i = 0%>
+  <tbody>
+    <tr onclick="location.href='<%= message_path(message) %>'"> <!-- Para hacer una row clickeable-->
+      <%while message.sender_id != @senders[i].id do%>
+        <%i+=1%>
+      <%end%>
+      <td><%= @senders[i].username%></td>
+      <td><%= message.content%></td>
+      <td><%= message.created_at%></td>
+    </tr>
+  </tbody>
+  <%end%>
+</table>
+<%else%>
+No tiene mensajes
+<%end%>

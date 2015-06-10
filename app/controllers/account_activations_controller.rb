@@ -5,6 +5,7 @@ class AccountActivationsController < ApplicationController
           if user && !user.activated?
             user.activated = true
             user.activation_digest = nil
+            user.activated_at = Time.now
             if  user.save
               flash[:success] = "Usuario activado exitosamente."
             else

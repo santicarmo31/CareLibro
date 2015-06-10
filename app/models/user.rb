@@ -8,7 +8,10 @@ class User < ActiveRecord::Base
   has_many :comments,dependent: :delete_all
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :inverse_friends, :through => :inverse_friendships, :source => :user
-
+  has_many :messages
+  #has_many :receiver_messages, through: :message
+  #has_many :inverse_messages, class_name: "Message", foreign_key: "receiver_id"
+  #has_many :inverse_send_messages, through: :inverse_messages, source: :user
 
   mount_uploader :picture, ProfilePictureUploader
   validates :username, uniqueness:true #validacion para que el usuario sea unico"
@@ -49,7 +52,7 @@ class User < ActiveRecord::Base
 
   private
     def encryptPassword
-      if self.new_record? || self.can_edit_password?
+      if self.new_record? || self.can_edit_password
         self.salt = generateSalt
         self.password = User.encrypt(self.password, self.salt)
       end

@@ -1,19 +1,16 @@
 
 <%if @posts.any? %>
-<h1> Estos son los posts de todos tus amigos</h1>
-
+<h1>POSTS</h1>
 <%@posts.each do |x| %>
 <div class = "center-block">
-  <h2><%=link_to x.title, x %> <small> Propietario: <%= x.user.username%></small> </h2>
+  <h3><%=link_to x.title, x %> <small> Propietario: <%= x.user.username%></small> </h3>
   <div class="pull-right">
   <%if current_user == x.user%>
     <%= link_to x,data: {confirm: "Esta seguro que desea eliminar el post"},method: :delete, class: "btn btn-default"  do %>
-
       <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Eliminar Post
     <%end%>
   <%end%>
   </div>
-
   <p><%= x.description %></p>
   <hr>
 </div>
@@ -21,7 +18,7 @@
 <%else%>
   <h1>No has creado ningun post, pulsa en el boton para crear uno nuevo</h1>
 <%end%>
-
+<h2>Crea un nuevo post</h2>
 <button type="button" class="btn btn-default" aria-label="Left Align">
   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span><%= link_to " Nuevo post", :new_post %>
 </button>

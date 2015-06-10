@@ -1,0 +1,16 @@
+<%= form_for @message do |f| %>
+    <div>
+      <label for="exampleInputEmail1">Asunto</label>
+      <%= f.text_field :content, class: "form-control" %>
+        <br style="clear:both">
+            <div class="form-group col-md-4 ">
+                <label id="messageLabel" for="message">Message </label>
+                <%= f.text_area :body, class: "form-control input-sm " %>
+            </div>
+        <br style="clear:both">
+        <div class="form-group col-md-2">
+        <%= f.submit "Enviar mensaje", class:"form-control input-sm" %>
+    </div>
+</div>
+<%= f.hidden_field :receiver_id,value: @receiver.id%>
+<% end %>

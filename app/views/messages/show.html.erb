@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1 class="panel-title"><h3><%=@message.content.upcase%> <small><%=@user.username%></small></h3></h1>
+  <div class="jumbotron">
+    <medium><%=@message.body%></medium>
+</div>
+<div class="btn-group btn-group-lg" role="group" aria-label="....">
+<p><a><%= link_to "Regresar", messages_path, class: "btn btn-info" %></a></p>
+</div>
+<div class="btn-group" role="group">
+<p><a><%= link_to "Responder", new_message_path(username: @user.username), class: "btn btn-info" %></a></p>
+</div>
+<div class="btn-group" role="group">
+<p><a><%= link_to "Eliminar",@message,method: :DELETE, class: "btn btn-info" %></a></p>
+</div>
+  </div>
+</div>

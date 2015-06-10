@@ -62,10 +62,9 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if password_params[:password] && password_params[:password_confirmation]
-      @user.update(password_params)
-      @user.can_edit_password = false
       @user.password_token = nil
-      @user.save
+      @user.update(password_params)
+      @user.toggle! :can_edit_password #= false
       flash[:success] = "Contraseña actualizada!"
       redirect_to "/#{current_user.username}"
     else

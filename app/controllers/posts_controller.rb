@@ -10,7 +10,7 @@ class PostsController < ApplicationController
         @friends.push(friend.friend_id)
       end
       @posts = Post.where(["user_id IN (:friends) OR user_id = :current_user",friends: @friends, current_user: current_user.id])
-      @posts = @posts.reorder(created_at: :asc)
+      @posts = @posts.reorder(created_at: :desc)
 
       if params[:search]
         @search = "%#{params[:search]}%"
