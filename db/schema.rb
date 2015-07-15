@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604205959) do
+ActiveRecord::Schema.define(version: 20150614172644) do
+
+  create_table "auths", force: true do |t|
+    t.integer  "token"
+    t.datetime "expires"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "description"

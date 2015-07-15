@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  #rutas para los servicios mobiles
+  namespace :api, defaults: { format: 'json' } do
+   namespace :v1 do
+     match "/login",to: "users#login", via: [:post]
+     resources :users
+     resources :posts
+     resources :friendships
+   end
+ end
+
+
+  #rutas para lso servicios web
   root 'welcome#home'
     resources :messages
   #match "/logout",to: "users#logout", via: [:delete], as: :logout #Es via delete por que voy a eliminar usuario
