@@ -36,6 +36,17 @@ class Api::V1::UsersController < ApplicationController
         end
   end
 
+  def index
+    @friends = []
+    for friend in current_user.friendships  # recorro los amigos del current_user para agregarlos al arreglo
+      @friends << User.find_by(id: friend.friend_id)
+    end
+    render json:{
+      friendships:@friends
+
+    }
+  end
+
 
   private
 

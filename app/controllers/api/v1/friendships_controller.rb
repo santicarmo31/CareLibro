@@ -4,7 +4,8 @@ class Api::V1::FriendshipsController < ApplicationController
 
   def create
     # render json:{current_user:current_user}
-    @friendship = current_user.friendships.build(:friend_id => params[:friend_id])
+    @user = User.find_by(username: params[:username])
+    @friendship = current_user.friendships.build(friend_id: @user.id)
     if @friendship.save
       render json:{
         success:true
@@ -17,9 +18,14 @@ class Api::V1::FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friendship = current_user.friendships.find(params[:id])
-    @friendship.destroy
-    flash[:notice] = "Removed friendship."
-    redirect_to "/#{current_user.username}"
+    @friendship = current_user.friendships.find_by(friend_id: params[:id])
+    if @friendship.destroy
+      render json:{
+        success:true
+      }else {
+        success:false
+      }
+    end
+
   end
 end
